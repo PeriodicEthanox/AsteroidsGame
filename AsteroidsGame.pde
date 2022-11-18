@@ -1,3 +1,8 @@
+
+Spaceship bob = new Spaceship();
+Star[] nightSky = new Star[200];
+
+
 public void setup() 
 {
   size(1000, 1000);
