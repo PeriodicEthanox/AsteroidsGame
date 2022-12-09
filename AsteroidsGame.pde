@@ -1,3 +1,4 @@
+ArrayList <Bullet> shots = new ArrayList<Bullet>();
 ArrayList <Asteroid> stan = new ArrayList <Asteroid>();
 Spaceship bob = new Spaceship();
 Star[] nightSky = new Star[200];
@@ -7,7 +8,7 @@ public void setup()
   for (int i = 0; i < nightSky.length; i ++) {
     nightSky[i] = new Star();
   }
-  for (int i = 0; i < 20; i ++) {
+  for (int i = 0; i < 50; i ++) {
     stan.add(0, new Asteroid());
   }
 }
@@ -26,17 +27,31 @@ public void draw()
     if (d < 10) {
       stan.remove(i);
     }
+    for (int j = 0; j < shots.size(); j++) {
+      float d1 = dist((float)gus.getX(), (float)gus.getY(), (float)shots.get(j).getXs(), (float)shots.get(j).getYs());
+      if (d1 < 5) {
+        stan.remove(i);
+        shots.remove(j);
+        j-=1;
+        break;
+      }
+    }
   }
+
   for (int i = 0; i < stan.size(); i++) {
 
     stan.get(i).move();
     stan.get(i).show();
   }
+  for (int i = 0; i < shots.size(); i++) {
+    shots.get(i).move();
+    shots.get(i).show();
+  }
 }
 public void keyPressed() {
 
   if (key == 's') {
-    bob.accelerate(5);
+    bob.accelerate(3);
   }
   if (key == 'a') {
     bob.turn(-20);
@@ -47,5 +62,7 @@ public void keyPressed() {
   if (key == 'w') {  
     bob.Hyperspace();
   }
+  if (key == ' ') {
+    shots.add(new Bullet(bob));
+  }
 }
-
